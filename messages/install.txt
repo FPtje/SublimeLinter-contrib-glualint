@@ -1,0 +1,10 @@
+SublimeLinter-contrib-glualint
+-------------------------------
+This linter plugin for SublimeLinter provides an interface to glualint.
+
+** IMPORTANT! **
+
+Before this plugin will activate, you *must*
+follow the installation instructions here:
+
+https://github.com/FPtje/SublimeLinter-contrib-glualint
