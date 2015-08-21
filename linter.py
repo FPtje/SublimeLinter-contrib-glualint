@@ -19,7 +19,7 @@ class Glualint(Linter):
 
     syntax = 'lua'
     cmd = 'glualint'
-    config_file = ('--config', 'glualint.json', '~')
+    config_file = ('--config', 'glualint.json')
     version_args = '--version'
     version_re = r'(?P<version>\d+\.\d+\.\d+)'
     version_requirement = '>= 1.0, < 2.0'
