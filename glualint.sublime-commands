@@ -1,0 +1,6 @@
+[
+    {
+        "caption": "glualint: Pretty print selected code",
+        "command": "pretty_print_lua"
+    }
+]
