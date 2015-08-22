@@ -15,12 +15,19 @@ class PrettyPrintLuaCommand(sublime_plugin.TextCommand):
 
     def prettyPrint(self, edit, selection, txt):
         import subprocess
+        import os
         view = self.view
+
+        startupinfo = None
+        if os.name == 'nt':
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
         popen = subprocess.Popen(["glualint", "--pretty-print"],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
-            universal_newlines=True
+            universal_newlines=True,
+            startupinfo=startupinfo
         )
 
         try:
