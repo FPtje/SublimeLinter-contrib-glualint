@@ -1,6 +1,9 @@
 SublimeLinter-contrib-glualint
 -------------------------------
-This linter plugin for SublimeLinter provides an interface to glualint.
+This linter plugin for SublimeLinter provides an interface to glualint. The linter performs two tasks:
+
+- Lint GMod Lua code
+- Pretty print code (select a chunk of code, open the Command Palette, type "pretty print" and press enter)
 
 ** IMPORTANT! **
 
