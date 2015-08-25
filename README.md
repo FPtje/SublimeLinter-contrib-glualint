@@ -3,7 +3,10 @@ SublimeLinter-contrib-glualint
 
 [![Build Status](https://travis-ci.org/SublimeLinter/SublimeLinter-contrib-glualint.svg?branch=master)](https://travis-ci.org/SublimeLinter/SublimeLinter-contrib-glualint)
 
-This linter plugin for [SublimeLinter][docs] provides an interface to [glualint](https://github.com/FPtje/GLuaFixer). It will be used with files that have the “lua” syntax.
+This linter plugin for [SublimeLinter][docs] provides an interface to [glualint](https://github.com/FPtje/GLuaFixer). It will be used with files that have the “lua” syntax. The linter performs two tasks:
+
+- Lint GMod Lua code
+- Pretty print code (select code, open the [Command Palette](http://docs.sublimetext.info/en/sublime-text-3/extensibility/command_palette.html), type `pretty print` and press enter)
 
 ## Installation
 SublimeLinter 3 must be installed in order to use this plugin. If SublimeLinter 3 is not installed, please follow the instructions [here][installation].
@@ -36,6 +39,8 @@ To install via Package Control, do the following:
 
 ## Settings
 For general information on how SublimeLinter works with settings, please see [Settings][settings]. For information on generic linter settings, please see [Linter Settings][linter-settings].
+
+glualint itself can be configured using a file called `glualint.json`. Please see the [glualint readme](https://github.com/FPtje/GLuaFixer/blob/master/README.md#configuring-glualint) for more information.
 
 
 ## Contributing
