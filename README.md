@@ -1,8 +1,6 @@
 SublimeLinter-contrib-glualint
 ================================
 
-[![Build Status](https://travis-ci.org/SublimeLinter/SublimeLinter-contrib-glualint.svg?branch=master)](https://travis-ci.org/SublimeLinter/SublimeLinter-contrib-glualint)
-
 This linter plugin for [SublimeLinter][docs] provides an interface to [glualint](https://github.com/FPtje/GLuaFixer). It will be used with files that have the “lua” syntax. The linter performs two tasks:
 
 - Lint GMod Lua code
