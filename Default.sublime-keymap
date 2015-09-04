@@ -1,0 +1,3 @@
+[
+    { "keys": ["alt+p"], "command": "pretty_print_lua" }
+]
