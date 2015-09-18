@@ -23,7 +23,10 @@ class PrettyPrintLuaCommand(sublime_plugin.TextCommand):
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
-        popen = subprocess.Popen(["glualint", "--pretty-print"],
+        settings = view.settings()
+        indent = settings.get('translate_tabs_to_spaces') and settings.get('tab_size') * ' ' or '\t'
+        indent = "--indentation='" + indent + "'"
+        popen = subprocess.Popen(["glualint", indent, "--pretty-print"],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             universal_newlines=True,
