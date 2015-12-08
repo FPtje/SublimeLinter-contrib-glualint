@@ -48,5 +48,6 @@ class PrettyPrintLuaCommand(sublime_plugin.TextCommand):
         beginLine = view.substr(view.line(selection.begin()))
         whitespace = re.match(r"\s*", beginLine).group()
         indented = text.replace("\n", "\n" + whitespace)
+        indented = re.sub(r"\n(\s)+\n", "\n\n", indented)
 
         view.replace(edit, selection, indented)
