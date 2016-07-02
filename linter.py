@@ -25,7 +25,7 @@ class Glualint(Linter):
     version_requirement = '>= 1.0, < 2.0'
     regex = (
         r'^.+?: \[((?P<error>Error)|(?P<warning>Warning))\] '
-        r'line (?P<line>\d+), column (?P<col>\d+): '
+        r'line (?P<line>\d+), column (?P<col>\d+)( - line \d+, column \d+)?: '
         r'(?P<message>.+)'
     )
     multiline = False
