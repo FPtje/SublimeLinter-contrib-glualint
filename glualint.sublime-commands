@@ -4,7 +4,11 @@
         "command": "pretty_print_lua"
     },
     {
-        "caption": "glualint: Find globals in project",
+        "caption": "glualint: Analyze globals in project",
         "command": "analyse_globals_lua"
+    },
+    {
+        "caption": "glualint: Lint project",
+        "command": "lint_project_lua"
     }
 ]
