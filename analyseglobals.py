@@ -29,7 +29,7 @@ class AnalyseGlobalsLuaCommand(sublime_plugin.TextCommand):
 
             newView = view.window().new_file()
             newView.set_name("Found globals")
-            # newView.set_syntax_file(GIT_DIFF_VIEW_SYNTAX)
+            # newView.set_syntax_file("Packages/Default/Find Results.hidden-tmLanguage")
             newView.set_scratch(True)
             newView.run_command("analyse_globals_lua_insert", {'text': output, 'path': path})
             newView.set_read_only(True)
