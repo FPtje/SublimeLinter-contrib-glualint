@@ -46,7 +46,6 @@ class AnalyseGlobalsLuaCommand(sublime_plugin.TextCommand):
             # newView.set_syntax_file("Packages/Default/Find Results.hidden-tmLanguage")
             newView.set_scratch(True)
             newView.run_command("lua_insert", {'text': output, 'path': path})
-            newView.set_read_only(True)
         except subprocess.TimeoutExpired:
             popen.kill()
             sublime.status_message("The glualint process froze!")
@@ -89,7 +88,6 @@ class LintProjectLuaCommand(sublime_plugin.TextCommand):
             # newView.set_syntax_file("Packages/Default/Find Results.hidden-tmLanguage")
             newView.set_scratch(True)
             newView.run_command("lua_insert", {'text': res, 'path': path})
-            newView.set_read_only(True)
         except subprocess.TimeoutExpired:
             popen.kill()
             sublime.status_message("The glualint process froze!")
