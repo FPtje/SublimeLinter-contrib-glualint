@@ -1,4 +1,6 @@
-import sublime, sublime_plugin
+import sublime
+import sublime_plugin
+
 
 class PrettyPrintLuaCommand(sublime_plugin.TextCommand):
     """
@@ -8,7 +10,8 @@ class PrettyPrintLuaCommand(sublime_plugin.TextCommand):
         view = self.view
 
         for s in view.sel():
-            if s.empty(): continue
+            if s.empty():
+                continue
 
             txt = view.substr(s)
             self.prettyPrint(edit, s, txt)
@@ -24,9 +27,11 @@ class PrettyPrintLuaCommand(sublime_plugin.TextCommand):
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
         settings = view.settings()
-        indent = settings.get('translate_tabs_to_spaces') and settings.get('tab_size') * ' ' or '\t'
+        indent = settings.get('translate_tabs_to_spaces') and \
+            settings.get('tab_size') * ' ' or '\t'
         indent = "--indentation='" + indent + "'"
-        popen = subprocess.Popen(["glualint", indent, "--pretty-print"],
+        popen = subprocess.Popen(
+            ["glualint", indent, "--pretty-print"],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             universal_newlines=True,
