@@ -1,5 +1,6 @@
 import sublime
 import sublime_plugin
+import os.path
 
 
 class PrettyPrintLuaCommand(sublime_plugin.TextCommand):
@@ -35,7 +36,8 @@ class PrettyPrintLuaCommand(sublime_plugin.TextCommand):
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             universal_newlines=True,
-            startupinfo=startupinfo
+            startupinfo=startupinfo,
+            cwd=os.path.dirname(os.path.realpath(view.file_name()))
         )
 
         try:

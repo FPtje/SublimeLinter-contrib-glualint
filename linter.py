@@ -30,6 +30,6 @@ class Glualint(Linter):
     )
     multiline = False
     line_col_base = (1, 1)
-    tempfile_suffix = 'lua'
+    tempfile_suffix = '-'
     error_stream = util.STREAM_STDOUT
 
