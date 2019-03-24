@@ -35,14 +35,15 @@ class PrettyPrintLuaCommand(sublime_plugin.TextCommand):
             ["glualint", indent, "--pretty-print"],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
-            universal_newlines=True,
+            universal_newlines=False,
             startupinfo=startupinfo,
             cwd=os.path.dirname(os.path.realpath(view.file_name()))
         )
 
         try:
-            output, errs = popen.communicate(input=txt, timeout=10)
-            self.insertPrettyPrinted(edit, selection, output)
+            output, errs = popen.communicate(input=txt.encode(view.encoding()), timeout=10)
+            output = output.replace(b'\r', b'')
+            self.insertPrettyPrinted(edit, selection, output.decode(view.encoding()))
         except subprocess.TimeoutExpired:
             popen.kill()
             sublime.status_message("The glualint process froze!")
