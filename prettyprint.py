@@ -40,12 +40,10 @@ class PrettyPrintLuaCommand(sublime_plugin.TextCommand):
             cwd=os.path.dirname(os.path.realpath(view.file_name()))
         )
 
-        encoding = view.encoding()
-        encoding = encoding if encoding != "Undefined" else "utf-8"
         try:
-            output, errs = popen.communicate(input=txt.encode(encoding), timeout=10)
+            output, errs = popen.communicate(input=txt.encode("utf-8"), timeout=10)
             output = output.replace(b'\r', b'')
-            self.insertPrettyPrinted(edit, selection, output.decode(encoding))
+            self.insertPrettyPrinted(edit, selection, output.decode("utf-8"))
         except subprocess.TimeoutExpired:
             popen.kill()
             sublime.status_message("The glualint process froze!")
