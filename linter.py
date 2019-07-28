@@ -17,17 +17,14 @@ class Glualint(Linter):
 
     """Provides an interface to glualint."""
 
-    syntax = 'lua'
     cmd = 'glualint --stdin'
     config_file = ('--config', 'glualint.json')
-    version_args = '--version'
-    version_re = r'(?P<version>\d+\.\d+\.\d+)'
-    version_requirement = '>= 1.11.2, < 2.0'
     regex = (
         r'^.+?: \[((?P<error>Error)|(?P<warning>Warning))\] '
         r'line (?P<line>\d+), column (?P<col>\d+)( - line \d+, column \d+)?: '
         r'(?P<message>.+)'
     )
+    defaults = { 'selector': 'source.lua' }
     multiline = False
     line_col_base = (1, 1)
     error_stream = util.STREAM_STDOUT
