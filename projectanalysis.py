@@ -29,6 +29,7 @@ class AnalyseGlobalsLuaCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         view = self.view
         path = projectPath(view)
+        if (path is None): return
 
         import subprocess
         import os
@@ -68,6 +69,7 @@ class LintProjectLuaCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         view = self.view
         path = projectPath(view)
+        if (path is None): return
 
         import subprocess
         import os
