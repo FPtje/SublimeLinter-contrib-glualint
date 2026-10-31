@@ -18,7 +18,6 @@ class Glualint(Linter):
     """Provides an interface to glualint."""
 
     cmd = 'glualint --stdin'
-    config_file = ('--config', 'glualint.json')
     regex = (
         r'^.+?: \[((?P<error>Error)|(?P<warning>Warning))\] '
         r'line (?P<line>\d+), column (?P<col>\d+)( - line \d+, column \d+)?: '
