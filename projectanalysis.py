@@ -1,7 +1,10 @@
-import sublime
-import sublime_plugin
+import os
 import os.path
 import re
+import subprocess
+
+import sublime
+import sublime_plugin
 
 
 def projectPath(view):
@@ -10,32 +13,29 @@ def projectPath(view):
     filename = os.path.realpath(view.file_name())
 
     if filename is None:
-        sublime.status_message(
-            "This file is not part of a project in the sidebar!")
+        sublime.status_message("This file is not part of a project in the sidebar!")
         return
 
     for folder in folders:
         if filename.startswith(os.path.realpath(folder)):
             return folder
 
-    sublime.status_message(
-        "This file is not part of a project in the sidebar!")
+    sublime.status_message("This file is not part of a project in the sidebar!")
 
 
 class AnalyseGlobalsLuaCommand(sublime_plugin.TextCommand):
     """
     Finds all globals in the project
     """
+
     def run(self, edit):
         view = self.view
         path = projectPath(view)
-        if (path is None): return
-
-        import subprocess
-        import os
+        if path is None:
+            return
 
         startupinfo = None
-        if os.name == 'nt':
+        if os.name == "nt":
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
@@ -44,17 +44,17 @@ class AnalyseGlobalsLuaCommand(sublime_plugin.TextCommand):
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             universal_newlines=True,
-            startupinfo=startupinfo
+            startupinfo=startupinfo,
         )
 
         try:
-            output, errs = popen.communicate(input="", timeout=20)
+            output, _errs = popen.communicate(input="", timeout=20)
 
             newView = view.window().new_file()
             newView.set_name("Found globals")
             # newView.set_syntax_file("Packages/Default/Find Results.hidden-tmLanguage")
             newView.set_scratch(True)
-            newView.run_command("lua_insert", {'text': output, 'path': path})
+            newView.run_command("lua_insert", {"text": output, "path": path})
         except subprocess.TimeoutExpired:
             popen.kill()
             sublime.status_message("The glualint process froze!")
@@ -66,16 +66,15 @@ class LintProjectLuaCommand(sublime_plugin.TextCommand):
     """
     Give lint messages for all files in a project
     """
+
     def run(self, edit):
         view = self.view
         path = projectPath(view)
-        if (path is None): return
-
-        import subprocess
-        import os
+        if path is None:
+            return
 
         startupinfo = None
-        if os.name == 'nt':
+        if os.name == "nt":
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
@@ -84,11 +83,11 @@ class LintProjectLuaCommand(sublime_plugin.TextCommand):
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             universal_newlines=True,
-            startupinfo=startupinfo
+            startupinfo=startupinfo,
         )
 
         try:
-            output, errs = popen.communicate(input="", timeout=20)
+            output, _errs = popen.communicate(input="", timeout=20)
 
             res = self.prettyPrintMessages(output)
 
@@ -96,7 +95,7 @@ class LintProjectLuaCommand(sublime_plugin.TextCommand):
             newView.set_name("Lint messages")
             # newView.set_syntax_file("Packages/Default/Find Results.hidden-tmLanguage")
             newView.set_scratch(True)
-            newView.run_command("lua_insert", {'text': res, 'path': path})
+            newView.run_command("lua_insert", {"text": res, "path": path})
         except subprocess.TimeoutExpired:
             popen.kill()
             sublime.status_message("The glualint process froze!")
@@ -104,15 +103,15 @@ class LintProjectLuaCommand(sublime_plugin.TextCommand):
             sublime.status_message("Unable to lint project!")
 
     def prettyPrintMessages(self, output):
-        pattern = re.compile('(.+?): (\[((?P<error>Error)|(?P<warning>Warning))\] .*)')
+        pattern = re.compile(r"(.+?): (\[((?P<error>Error)|(?P<warning>Warning))\] .*)")
         res = []
 
         # Contains file names on every even index
         # warnings/errors on all even indices
         filesNWarnings = re.findall(pattern, output)
 
-        lastFile = ''
-        for i in range(0, len(filesNWarnings)):
+        lastFile = ""
+        for i, _ in enumerate(filesNWarnings):
             file = filesNWarnings[i][0]
             message = filesNWarnings[i][1]
 
@@ -128,10 +127,11 @@ class LintProjectLuaCommand(sublime_plugin.TextCommand):
 
 class LuaInsertCommand(sublime_plugin.TextCommand):
     def run(self, edit, text="", path="unknown"):
-        result_message = "Linter messages of " + path + ":\n\n" + \
-            ("No lint messages" if text == "" else text)
-
-        self.view.insert(
-            edit, self.view.text_point(0, 0),
-            result_message
+        result_message = (
+            "Linter messages of "
+            + path
+            + ":\n\n"
+            + ("No lint messages" if text == "" else text)
         )
+
+        self.view.insert(edit, self.view.text_point(0, 0), result_message)
