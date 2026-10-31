@@ -37,13 +37,15 @@ class PrettyPrintLuaCommand(sublime_plugin.TextCommand):
             or "\t"
         )
         indent = "--indentation='" + indent + "'"
+        file_name = view.file_name()
+        cwd = os.path.dirname(os.path.realpath(file_name)) if file_name else None
         popen = subprocess.Popen(
             ["glualint", indent, "--pretty-print"],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             universal_newlines=False,
             startupinfo=startupinfo,
-            cwd=os.path.dirname(os.path.realpath(view.file_name())),
+            cwd=cwd,
         )
 
         try:
